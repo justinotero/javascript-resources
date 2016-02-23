@@ -3,10 +3,10 @@ A list of the resources I used to learn JavaScript, in order:
 
 
 1. [Codecademy] (https://www.codecademy.com/learn/javascript)
-2. [Code School] (https://www.codeschool.com/learn/javascript) 
+2. [Code School] (https://www.codeschool.com/learn/javascript)  *JavaScript Road Trip Part 1-3*
 3. [Javascript Koans] (https://github.com/mrdavidlaing/javascript-koans)  
 3. [Eloquent JavaScript] (http://eloquentjavascript.net/) *Use this to do the exercises*  
-[Eloquent JavaScript Annotated Version] (http://watchandcode.com/courses/eloquent-javascript-the-annotated-version) *Read this for easier understanding*
+[Eloquent JavaScript Annotated Version] (http://watchandcode.com/courses/eloquent-javascript-the-annotated-version) *Read ch1-6 for now, Javascript is Sexy blogs will help better understand ch4-6*
 4. JavaScript is Sexy blogs:    
 [JavaScript Object in Details] (http://javascriptissexy.com/javascript-objects-in-detail/)  
 [JavaScript Variable Scope and Hoisting Explained] (http://javascriptissexy.com/javascript-variable-scope-and-hoisting-explained/)  

@@ -1,4 +1,7 @@
-Arrays
+Array methods
+
+forEach, map, filter, concatAll, reduce
+
 
 //Exercise 1: Print all the names in an array
 for(var i = 0; i < array.length; i++) {
@@ -89,3 +92,69 @@ return movieLists.concatMap(function(movie) {
   });
 
 //Exercise 15: Use forEach to find the largest box art
+boxarts.forEach(function(boxart) {
+		currentSize = boxart.width * boxart.height;
+		if (currentSize > maxSize) {
+			largestBoxart = boxart;
+			maxSize = currentSize;
+		}
+	});
+
+//Exercise 16: Implement reduce()
+if (this.length === 0) {
+		return this;
+	}
+	else {
+		if (arguments.length === 1) {
+			counter = 1;
+			accumulatedValue = this[0];
+		}
+		else if (arguments.length >= 2) {
+			counter = 0;
+			accumulatedValue = initialValue;
+		}
+		else {
+			throw "Invalid arguments.";
+		}
+		while(counter < this.length) {
+			accumulatedValue = combiner(accumulatedValue, this[counter])
+			counter++;
+		}
+
+//Exercise 17: Retrieve the largest rating
+return ratings.
+    reduce(function(total, current) {
+      if (total > current) {
+        return total;
+      }
+      return current;
+    });
+
+//Exercise 18: Retrieve url of the largest boxart
+return boxarts.
+    reduce(function(total, current) {
+      if (total > current) {
+        return total;
+      }
+      return current;
+    }).map(function(boxart) {
+      return boxart.url;
+    });
+
+//Exercise 19: Reducing with an initial value
+obj[video.id] = video.title;
+
+//Exercise 20: Retrieve the id, title, and smallest box art url for every video
+return movieLists.
+		concatMap(function(movieList) {
+      return movieList.videos.concatMap(function(video) {
+        return video.boxarts.reduce(function(total, current) {
+          if (total.width < current.width) {
+            return total;
+          }
+          return current;
+        }).map(function(boxart) {
+          return {id: video.id, title: video.title, boxart: boxart.url};
+        });
+      });
+	})

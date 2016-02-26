@@ -22,4 +22,7 @@ A list of the resources I used to learn JavaScript, in order:
 
 
 ## Misc
+[JavaScript list of Array Methods] (http://www.w3schools.com/jsref/jsref_obj_array.asp)  
+[JavaScript list of String Methods] (http://www.w3schools.com/jsref/jsref_obj_string.asp)  
+[JavaScript MDN] (https://developer.mozilla.org/en-US/docs/Web/JavaScript)  
 [Airbnb JavaScript Style Guide] (https://github.com/airbnb/javascript)

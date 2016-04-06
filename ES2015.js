@@ -31,7 +31,7 @@ loadNames(['Max', 'Bob', 'Sam']);
 //Sam
 //Sam
 
-with let theres no sharing in for loops. A new variable is created on each iteration
+with let theres no sharing in for loops. a new variable is created on each iteration
 
 function logNames(names) {
   for (let i in names) {
@@ -63,7 +63,7 @@ creates read-only named constants
 variables declared with const are scoped to the nearest block
 
 a magic number (in this case 3) is a literal value without a clear meaning
-Hard to tell whether both 3s serve the same purpose
+Hard to tell whether both 3 serve the same purpose
 
 function logNames(names) {
   if (names.length > 3) {
@@ -115,8 +115,8 @@ ___Functions___
 default parameter values help move default values from the function body to the function signature
 
 function logNames(names = []) {
-	let namesLength = names.length;
-	console.log(namesLength);
+  let namesLength = names.length;
+  console.log(namesLength);
 }
 
 uses empty array as default value when no argument is passed
@@ -126,10 +126,10 @@ named parameters
 using named parameters for optional settings makes it easier to understand how a function should be invoked
 
 function car(name, {color, year, milesDriven}) {
-	console.log(name);
-	console.log(color);
-	console.log(year);
-	console.log(milesDriven);
+  console.log(name);
+  console.log(color);
+  console.log(year);
+  console.log(milesDriven);
 }
 
 car('bmw', {
@@ -480,3 +480,360 @@ countdownTimer($('button'), 60, {container: '.new-post-options'});
 
 console.log(settings.container); //.new-post-options
 console.log(settings.timeUnit); //seconds
+
+
+
+___Arrays___
+
+dont access array elements by their index to assign to local variables
+
+let names = ['Max', 'Bob', 'Sam'];
+
+//bad
+let a = names[0];
+let b = names[1];
+let c = names[2];
+
+use array destructuring
+
+//good
+let [a, b, c] = names;
+
+values can be discarded
+
+let [a, , b] = names;
+
+console.log(a, b); //Max Sam
+
+combine array destructuring with rest parameters to group values into other arrays
+
+let [first, ...rest] = names;
+
+console.log(first, rest); //Max ['Bob','Sam'];
+
+
+
+for of
+iterates over property values
+better way to loop over arrays and other iterable objects
+
+let names = ['Max', 'Bob', 'Sam'];
+
+//bad
+for (let index in names) {
+  console.log(names[index]); //Max Bob Sam
+}
+
+//good
+for (let element of names) {
+  console.log(element); //Max Bob Sam
+}
+
+cannot use for of on objects
+
+let age = {Max: 20, Bob: 15, Sam: 10};
+
+for (let element of age) {
+  console.log(element); //ERROR
+}
+
+in order to use for of on objects, the object needs a special function assigned to the Symbol.iterator property
+
+//can use for of
+console.log(typeof names[Symbol.iterator]); //function
+
+//cannot use for of
+console.log(typeof age[Symbol.iterator]); //undefined
+
+
+
+Array.find
+returns the first element in the array that satisfies a provided testing function
+
+let namesAge = [
+  {name: 'Max', age: 20},
+  {name: 'Bob', age: 15},
+  {name: 'Sam', age: 10}
+];
+
+let youngAge = namesAge.find(element => element.age <= 10);
+console.log(youngAge); //{name: 'Sam', age: 10}
+
+
+
+___Maps___
+
+a data structure composed of a collection of key/value pairs
+
+issues with using objects as maps
+its keys are always converted to strings
+
+let name1 = {name: 'Max'};
+let name2 = {name: 'Bob'};
+
+let age = {};
+age[name1] = 20;
+age[name2] = 15;
+
+console.log(age[name1]); //15
+console.log(age[name2]); //15
+
+the last value assigned overrides all the previous values because both objects are converted to the string '[object Object]'
+if we ask for the total list of keys in the age object using Object.keys, there is an array with only one element
+
+console.log(Object.keys(age)); //['object Object']
+
+use Map
+a simple key/value data structure
+any value may be used as either a key or a value, and objects are not converted to strings
+
+let name1 = {name: 'Max'};
+let name2 = {name: 'Bob'};
+
+let age = new Map();
+age.set(name1, 20);
+age.set(name2, 15);
+
+console.log(age.get(name1)); //20
+console.log(age.get(name2)); //15
+
+maps are iterable, so they can be used in a for of loop
+each run of the loop returns a [key, value] pair for an entry in the map
+
+let mapNames = new Map();
+
+mapNames.set('name', 'Max');
+mapNames.set('name', 'Bob');
+mapNames.set('name', 'Sam');
+
+for (let [key, value] of mapNames) {
+  console.log(`${key} = ${value}`);
+}
+
+/*
+name = Max
+name = Bob
+name = Sam
+*/
+
+
+
+WeakMap
+a type of map where only objects can be passed as keys
+primitive data types such as strings, numbers, booleans etc are not allowed
+weakmaps are not iterable, they cannot be used in a for of loop
+
+let name = {};
+let age = {};
+
+let nameAge = new WeakMap();
+nameAge.set(name, 'name');
+nameAge.set(age, 'age');
+
+console.log(nameAge.get(name)); //name
+console.log(nameAge.get(age)); //age
+
+nameAge.set('Max', 'Smith'); //ERROR
+
+all methods on a weakmap require access to an object used as a key
+
+console.log(nameAge.get(name)); //name
+console.log(nameAge.has(name)); //true
+console.log(nameAge.delete(name)); //true
+
+weakmaps are memory efficient
+individual entries in a weakmap can be garbage collected while the weakmap itself still exists
+weakmaps dont prevent the garbage collector from collecting objects currently used as keys, but that are no longer referenced anywhere else in the system
+
+let name = {}; //all objects occupy memory space
+
+let nameAge = new WeakMap();
+nameAge.set(name, 'age'); //object reference passed as key to the weakmap
+
+someOtherFunction(name); //once it returns, name can be garbage collected
+
+
+
+___Sets___
+
+the set object stores unique values of any type, whether primitive values or object references
+
+let names = new Set();
+
+names.add('Max');
+names.add({name: 'Bob'});
+names.add('Max'); //duplicate entries are ignored
+
+console.log(names.size) //2
+
+set objects are iterable, they can be used in a for of loop and destructuring
+
+for (let element of names) {
+  console.log(element);
+}
+
+/*
+Max
+{name: 'Bob'}
+*/
+
+let [a, b] = names;
+console.log(a, b) //Max {name: 'Bob'}
+
+
+
+WeakSet
+a type of set where only objects are allowed to be stored
+weaksets cannot be used in a for of loop, and they offer no methods for reading values from it
+
+let names = new WeakSet();
+
+names.add('Max'); //ERROR
+let bob = {name: 'Bob'};
+names.add(bob);
+
+names.has(bob); //true
+names.delete(bob); //true
+
+
+
+___Class___
+
+using a function approach
+a common approach to encapsulation in javascript is using a constructor function
+
+function People(name, age, gender) {
+  this.name = name;
+  this.age = age;
+  this.gender = gender;
+}
+
+People.prototype.whatGender = function() {
+  ...
+}
+
+let person = new People('Max', 20, 'male');
+person.whatGender();
+
+use classes
+
+class People {
+  constructor(name, age, gender) {
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+  }
+
+  whatGender() {
+    ...
+  }
+}
+
+let person = new People('Max', 20, 'male');
+person.whatGender();
+
+instance variables set on the constructor method can be accessed from all other instance methods in the class
+
+class People {
+  constructor(name, age, gender) {
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+  }
+
+  whatGender() {
+    let maleOrFemale = this._findGender(this.gender);
+  }
+
+  _findGender(gender) {  //prefixing a method with an underscore is a convention for indicating that it should not be invoked from the public API
+    ...
+  }
+}
+
+use extends
+creates a class that inherits methods and properties from another class. the super method runs the constructor function from the parent class
+
+class Teenager extends People {
+  constructor(name, age, gender, school, grade) {
+    super(name, age, gender);
+    this.school = school;
+    this.grade = grade;
+  }
+
+  whatGender() {
+    let genderType = super.whatGender(); //child classes can invoke methods from their parent classes via the super object
+    return `Gender is: ${this.gender}`;
+  }
+}
+
+
+
+___Promises___
+
+synchronous style functions wait for return values
+
+//bad
+let name = getName('bob'); //page freezes until a value is returned from this function
+profile.render(name);
+
+avoid blocking the main thread of execution by writing nonblocking code
+asynchronous style functions pass callbacks
+
+//good
+getName('bob', function(name) {
+  profile.render(name);
+});
+
+use Promise
+abstraction that allows writing async code in an easier way
+
+the promise constructor function takes an anonymous function with 2 callback arguments known as handlers
+
+function getName(name) {
+  return new Promise(function(resolve, reject) {
+    ...
+    resolve(someValue); //called when the nonblocking code is done executing
+    ...
+    reject(someValue); //called when an error occurs
+  });
+};
+
+a Promise represents a future value, such as the eventual result of an asynchronous operation
+use the then() method to read results from the Promise once its resolved. this method takes a function that will only be invoked once the Promise is resolved
+
+getName('bob').then(function(name) {
+  profile.render(name);
+});
+
+then() can also be chained multiple times. the return value from one call is passed as argument to the next
+
+getName('bob').then(function(nameList) {
+  return nameList.filter((element) => element ==='bob');
+  }).then(function(name) {
+    profile.render(name);
+  });
+
+use the catch() method for when the Promise is moved to a rejected state. none of the remaining then() functions are invoked
+
+getName('bob').then(function(nameList) {
+  return nameList.filter((element) => element ==='bob');
+  }).then(function(name) {
+    profile.render(name);
+  }).catch(function(error) {
+    console.log(error);
+  });
+
+passing function arguments to then(), instead of using anonymous functions
+
+function filterName(nameList) {...}
+
+let profile = {
+  render(filterName) {...}
+};
+
+getName('bob')
+  .then(filterName)
+  .then(profile.render)
+  .catch(function(error) {
+    console.log(error);
+  });

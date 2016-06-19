@@ -1,3 +1,3 @@
-function AlphabetSoup(str) {
-  return str.split('').sort().join('')
+function TimeConvert(num) {
+  return Math.floor(num / 60) + ':' + num % 60;
 }

@@ -1,7 +1,4 @@
-function SimpleAdding(num) {
-  var result = 0;
-  for (var i = 1; i <= num; i++) {
-    result += i;
-  }
-  return result;
+function LetterChanges(str) {
+  var result = str.replace(/[a-z]/gi, function (a) {return String.fromCharCode(a.charCodeAt() + 1);});
+  return result.replace(/[aeiou]/gi, function (a) {return a.toUpperCase();});
 }

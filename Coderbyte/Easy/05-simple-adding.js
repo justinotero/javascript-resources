@@ -1,7 +1,7 @@
-function LetterCapitalize(str) {
-  var arr = str.split(' ');
-  for (var i = 0; i < arr.length; i++) {
-    arr[i] = arr[i].substr(0, 1).toUpperCase() + arr[i].substr(1);
+function SimpleAdding(num) {
+  var result = 0;
+  for (var i = 1; i <= num; i++) {
+    result += i;
   }
-  return arr.join(' ');
+  return result;
 }

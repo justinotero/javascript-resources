@@ -1,5 +1,5 @@
-function Palindrome(str) {
-  var rev = str.match(/[a-z]/gi).reverse().join('').toLowerCase();
-  var str = str.match(/[a-z]/gi).join('').toLowerCase();
-  return str === rev;
+function ExOh(str) {
+  var x = str.split('x');
+  var o = str.split('o');
+  return x.length === o.length;
 }

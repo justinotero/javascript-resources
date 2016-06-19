@@ -1,15 +1,10 @@
-function DivisionStringified(num1,num2) {
-  var result = Math.round(num1/num2);
-  result = result.toString().split('');
-  count = 0;
-  if (result.length > 3) {
-    for (var i = 0; i < result.length; i++) {
-      count++;
-      if (count === 3) {
-        result[i] = ',' + result[i];
-        count = 0;
-      }
+function SecondGreatLow(arr) {
+  var unique = []
+  for (i = 0; i < arr.length; i++) {
+    if (unique.indexOf(arr[i]) === -1) {
+      unique.push(arr[i]);
     }
-  }
-  return result.join('');
+}
+  var arr = unique.sort(function(a,b) {return a-b;});
+  return arr[1] + ' ' + arr[arr.length - 2];
 }

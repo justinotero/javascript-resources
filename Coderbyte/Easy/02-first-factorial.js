@@ -1,5 +1,7 @@
-function LongestWord(sen) {
-  return sen.replace(/[^a-z ]/gi, '').split(' ').sort(function (a, b) {
-    return b.length - a.length;
-  }).shift();
+function FirstFactorial(num) {
+  var result = 1;
+  for (i = num; i > 0; i--) {
+    result *= i;
+  }
+  return result;
 }

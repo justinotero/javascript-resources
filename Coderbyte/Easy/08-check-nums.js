@@ -1,3 +1,3 @@
-function TimeConvert(num) {
-  return Math.floor(num / 60) + ':' + num % 60;
+function CheckNums(num1,num2) {
+  return num2 > num1 ? true : num2 === num1 ? -1 : false
 }

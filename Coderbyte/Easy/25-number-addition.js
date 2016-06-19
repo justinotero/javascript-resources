@@ -1,4 +1,3 @@
-function ThirdGreatest(strArr) {
-  strArr.sort(function(a,b) {return b.length - a.length;});
-  return strArr[2];
+function NumberAddition(str) {
+  return str.match(/[0-9]+/g).reduce(function(a,b) {return parseInt(a) + parseInt(b);});
 }

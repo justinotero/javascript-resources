@@ -1,16 +1,8 @@
-function OffLineMinimum(strArr) {
-  var result = [];
-  var arr = [];
-  var min;
-  for (var i = 0; i < strArr.length; i++) {
-    if (strArr[i] !== 'E') {
-      arr.push(parseInt(strArr[i]));
-    }
-    else {
-      min = Math.min.apply(Math, arr);
-      arr.splice(arr.indexOf(min), 1);
-      result.push(min);
+function PowersofTwo(num) {
+  for (var i = 0; i < num; i++) {
+    if (Math.pow(2, i) === num) {
+      return true;
     }
   }
-  return result.join(',');
+  return false;
 }

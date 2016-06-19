@@ -1,3 +1,3 @@
-function WordCount(str) {
-  return str.split(' ').length;
+function VowelCount(str) {
+  return str.match(/[aeiou]/gi).length;
 }

@@ -1,11 +1,22 @@
-function ArrayAdditionI(arr) {
-  var max = arr.sort(function(a,b) {return a - b;}).pop();
-  var result = 0
-  while (result !== max) {
-    for (i = 0; i < arr.length; i++) {
-      result += arr[i];
-    }
-  break;
+function ArithGeo(arr) {
+  var diff = arr[1] - arr[0];
+  var ratio = arr[1] / arr[0];
+  var arith = true;
+  var geo = true;
+
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i+1] - arr[i] !== diff) {
+      arith = false;
+    } else if (arr[i+1] / arr[i] !== ratio) {
+      geo = false;
   }
-  return result === max;
+}
+
+  if (arith === true) {
+    return 'Arithmetic';
+  } else if (geo === true) {
+    return 'Geometric';
+  } else {
+    return '-1';
+  }
 }
